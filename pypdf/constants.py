@@ -160,9 +160,7 @@ class PageAttributes:
 
     TYPE = "/Type"  # name, required; must be /Page
     PARENT = "/Parent"  # dictionary, required; a pages object
-    LAST_MODIFIED = (
-        "/LastModified"  # date, optional; date and time of last modification
-    )
+    LAST_MODIFIED = "/LastModified"  # date, optional; date and time of last modification
     RESOURCES = "/Resources"  # dictionary, required if there are any
     MEDIABOX = "/MediaBox"  # rectangle, required; rectangle specifying page size
     CROPBOX = "/CropBox"  # rectangle, optional
@@ -812,3 +810,40 @@ class FontFlags(IntFlag):
     ALL_CAP = 1 << 16
     SMALL_CAP = 1 << 17
     FORCE_BOLD = 1 << 18
+
+    class OptionalContentGroup:
+        """Constants for Optional Content Group (OCG) support in PDF."""
+
+        # OCG layer flags
+        OFF = 0
+        ON = 1
+
+        # OCG states and properties
+        OCG_OFF = "/Off"
+        OCG_ON = "/On"
+
+        # OCG dictionary entries
+        OCG_NAME = "/Name"
+        OCG_ID = "/ID"
+        OCG_USED = "/Used"
+        OCG_STATE = "/State"
+
+        # OC Configuration dictionary entries
+        ORDER = "/Order"
+        C = "/C"
+        I = "/I"
+        M = "/M"
+        AS = "/AS"
+        OCS = "/OCs"
+        OCGS = "/OCGs"
+
+        # OC Membership dictionary entries
+        OCMD_OFF = "/OCMDOff"
+        OCMD_ON = "/OCMDOn"
+
+        # Order array flags
+        ORDER_ALL_ON = "/Order AllOn"
+        ORDER_ALL_OFF = "/Order AllOff"
+        ORDER_ON = "/Order On"
+        ORDER_OFF = "/Order Off"
+        ORDER_TOGGLES = "/Order Toggles"

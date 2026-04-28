@@ -1,8 +1,9 @@
 """
 pypdf is a free and open-source pure-python PDF library capable of splitting,
 merging, cropping, and transforming the pages of PDF files. It can also add
-custom data, viewing options, and passwords to PDF files. pypdf can retrieve
-text and metadata from PDFs as well.
+custom data, viewing options, and
+passwords to PDF files. pypdf can
+retrieve text and metadata from PDFs as well.
 
 You can read the full docs at https://pypdf.readthedocs.io/.
 """
@@ -10,6 +11,12 @@ You can read the full docs at https://pypdf.readthedocs.io/.
 from ._crypt_providers import crypt_provider
 from ._doc_common import DocumentInformation
 from ._encryption import PasswordType
+from ._optional_content._integrations import (
+    PdfReaderOCGIntegration,
+    PdfWriterOCGIntegration,
+    use_ocgs,
+    use_ocgs_writer,
+)
 from ._page import PageObject, Transformation
 from ._reader import PdfReader
 from ._text_extraction import mult
@@ -26,9 +33,25 @@ try:
 except ImportError:
     pil_version = "none"
 
-_debug_versions = (
-    f"pypdf=={__version__}, {crypt_provider=}, PIL={pil_version}"
-)
+# Optional Content Group (OCG) types and functions
+try:
+    from ._optional_content import (
+        OCG,
+        OCGList,
+        PageOCProperties,
+        get_ocg_list,
+        get_ocg_state,
+        get_page_oc_properties,
+    )
+except ImportError:
+    OCG = None
+    OCGList = None
+    PageOCProperties = None
+    get_ocg_list = None
+    get_ocg_state = None
+    get_page_oc_properties = None
+
+_debug_versions = f"pypdf=={__version__}, {crypt_provider=}, PIL={pil_version}"
 
 __all__ = [
     "DocumentInformation",
@@ -45,4 +68,14 @@ __all__ = [
     "_debug_versions",
     "mult",
     "parse_filename_page_ranges",
+    "use_ocgs",
+    "use_ocgs_writer",
+    "PdfReaderOCGIntegration",
+    "PdfWriterOCGIntegration",
+    "OCG",
+    "OCGList",
+    "PageOCProperties",
+    "get_ocg_list",
+    "get_ocg_state",
+    "get_page_oc_properties",
 ]
